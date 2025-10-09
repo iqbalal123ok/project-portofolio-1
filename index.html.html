@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portofolio — Iqbal Alqadri</title>
+  <style>
+    :root{
+      --bg:#0e0e1a;
+      --card:#181829;
+      --text:#f0f0f0;
+      --muted:#aaa;
+      --accent1:#8a7aff;
+      --accent2:#00c4ff;
+      --gold:#d4af37;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    header{
+      position:fixed;
+      top:0;left:0;right:0;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 40px;
+      background:rgba(24,24,41,0.8);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      z-index:100;
+    }
+    .brand{
+      font-family:"Playfair Display",serif;
+      font-size:24px;
+      color:var(--accent2);
+      font-weight:700;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      margin-left:20px;
+      font-weight:600;
+      position:relative;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      bottom:-4px;left:0;
+      width:0%;height:2px;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      transition:width 0.3s;
+    }
+    nav a:hover::after{width:100%;}
+
+    /* HERO */
+    .hero{
+      height:100vh;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;
+      background:linear-gradient(180deg,#0e0e1a 0%,#1a1a2e 100%);
+      padding:0 20px;
+    }
+    .hero h1{
+      font-size:clamp(32px,6vw,56px);
+      color:var(--accent2);
+      margin-bottom:10px;
+      animation:fadeInDown 1.2s ease;
+    }
+    .typing{
+      border-right:3px solid var(--accent2);
+      white-space:nowrap;
+      overflow:hidden;
+      animation:typing 3.5s steps(40,end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing{
+      from{width:0;}
+      to{width:100%;}
+    }
+    @keyframes blink{
+      50%{border-color:transparent;}
+    }
+    .hero p{max-width:700px;color:var(--muted);animation:fadeIn 2s ease;}
+    .btn{
+      padding:12px 28px;
+      border:none;border-radius:30px;
+      cursor:pointer;
+      font-weight:600;
+      margin:8px;
+      transition:0.3s;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;
+      box-shadow:0 0 12px rgba(0,196,255,0.3);
+    }
+    .btn.primary:hover{
+      box-shadow:0 0 20px rgba(0,196,255,0.7);
+      transform:translateY(-2px);
+    }
+    .btn.secondary{
+      background:transparent;
+      border:2px solid var(--accent2);
+      color:var(--accent2);
+    }
+    .btn.secondary:hover{
+      background:var(--accent2);
+      color:white;
+      transform:translateY(-2px);
+    }
+
+    main{max-width:1100px;margin:0 auto;padding:100px 20px;}
+
+    .section-title{
+      text-align:center;
+      font-family:"Playfair Display",serif;
+      font-size:32px;
+      color:var(--accent1);
+      margin-bottom:10px;
+      opacity:0;transform:translateY(30px);
+      transition:1s;
+    }
+    .lead{text-align:center;margin-bottom:40px;color:var(--muted);}
+
+    /* About */
+    .about{
+      display:flex;flex-wrap:wrap;gap:40px;align-items:center;
+      justify-content:center;
+      opacity:0;transform:translateY(30px);transition:1s;
+    }
+    .about img{
+      width:200px;
+      border-radius:50%;
+      border:4px solid var(--accent2);
+      box-shadow:0 0 25px rgba(0,196,255,0.4);
+      animation:float 4s ease-in-out infinite, glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-12px);}
+    }
+    @keyframes glowPulse{
+      0%,100%{box-shadow:0 0 25px rgba(0,196,255,0.4);}
+      50%{box-shadow:0 0 35px rgba(138,122,255,0.7);}
+    }
+    .about-text{flex:1;min-width:250px;color:var(--muted);}
+
+    /* Skills */
+    .skills{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      opacity:0;transform:translateY(30px);transition:1s;
+    }
+    .skill{
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.4);
+      transition:transform 0.3s,box-shadow 0.3s;
+    }
+    .skill:hover{
+      transform:translateY(-5px);
+      box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    }
+    .skill-bar{
+      background:#2e2e4f;height:8px;border-radius:8px;overflow:hidden;margin-top:8px;
+    }
+    .skill-bar span{
+      display:block;height:100%;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      width:0;transition:width 2s ease;
+    }
+    .skill-bar span.active{width:var(--target-width);}
+
+    /* Projects */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+      opacity:0;transform:translateY(30px);transition:1s;
+    }
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.4);
+      padding:20px;
+      transition:transform 0.3s,box-shadow 0.3s;
+      text-align:center;
+    }
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    }
+    .card img{
+      width:60%;
+      border-radius:8px;
+      margin:0 auto 12px;
+      display:block;
+      transition:transform 0.4s ease;
+    }
+    .card img:hover{
+      transform:scale(1.05);
+    }
+
+    /* Timeline */
+    .timeline{border-left:3px solid var(--accent2);padding-left:20px;opacity:0;transform:translateY(30px);transition:1s;}
+    .timeline-item{margin-bottom:20px;}
+    .timeline-item h3{margin:0;color:var(--accent1);}
+    .timeline-item span{font-size:14px;color:var(--muted);}
+
+    /* Contact */
+    #contact .contact-box{
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.05);
+      margin:10px auto;
+      max-width:400px;
+      text-align:center;
+      font-size:18px;
+      font-weight:600;
+      transition:0.3s;
+      box-shadow:0 4px 15px rgba(0,0,0,0.4);
+    }
+    #contact .contact-box:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    }
+    #contact .label{color:var(--accent2);display:block;margin-bottom:6px;font-weight:500;}
+    #contact a{color:var(--accent1);text-decoration:none;}
+    #contact a:hover{text-decoration:underline;}
+
+    footer{text-align:center;padding:30px;color:var(--muted);margin-top:60px;}
+
+    /* Animations */
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .show{opacity:1!important;transform:translateY(0)!important;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Iqbal Alqadri</div>
+    <nav>
+      <a href="#about">Tentang</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projek</a>
+      <a href="#experience">Pengalaman</a>
+      <a href="#contact">Kontak</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="typing">Halo, Saya Iqbal Alqadri Borotan</h1>
+    <p>Mahasiswa Ilmu Komputer di Universitas Negeri Medan — menciptakan desain web modern dan elegan dengan sentuhan teknologi masa depan.</p>
+    <div style="margin-top:20px;">
+      <button class="btn primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">Lihat Projek</button>
+      <button class="btn secondary" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Hubungi Saya</button>
+    </div>
+  </section>
+
+  <main>
+    <section id="about">
+      <h2 class="section-title">Tentang Saya</h2>
+      <div class="about">
+        <img src="img/1.jpeg" alt="Foto Profil">
+        <div class="about-text">
+          <p>Saya seorang mahasiswa ilmu komputer di Universitas Negeri Medan, Fakultas Matematika dan Ilmu Pengetahuan Alam angkatan 2025. Saya tertarik pada pengembangan web dan desain antarmuka pengguna yang modern dan elegan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <p class="lead">Hal-hal yang saya kuasai dalam pengembangan web modern.</p>
+      <div class="skills">
+        <div class="skill"><h4>HTML</h4><div class="skill-bar"><span style="--target-width:30%"></span></div></div>
+        <div class="skill"><h4>CSS</h4><div class="skill-bar"><span style="--target-width:30%"></span></div></div>
+        <div class="skill"><h4>OLAH RAGA</h4><div class="skill-bar"><span style="--target-width:80%"></span></div></div>
+        <div class="skill"><h4>GAMING</h4><div class="skill-bar"><span style="--target-width:80%"></span></div></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projek Terbaru</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="img/2.jpeg" alt="Project 1">
+          <h3>Website Portofolio</h3>
+          <p>Website portofolio pribadi dengan konsep desain modern dan animasi halus, menampilkan identitas serta karya secara profesional.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Pengalaman</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Portofolio Project</h3>
+          <span>2025 - Sekarang</span>
+          <p>Mengerjakan proyek pembuatan website portofolio untuk tugas kuliah dan pengembangan diri.</p>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title" style="text-align:center;">Pendidikan</h2>
+    <ul style="display:inline-block;text-align:left;">
+      <li>SDN 104244 Jati Sari</li>
+      <li>SMPN 2 Lubuk Pakam</li>
+      <li>MAN 2 Deli Serdang</li>
+      <li>Universitas Negeri Medan</li>
+    </ul>
+
+    <section id="contact">
+      <h2 class="section-title">Kontak</h2>
+      <p class="lead">Hubungi saya melalui:</p>
+      <div class="contact-box"><span class="label">📧 Email</span>iqbalal123ok@gmail.com</div>
+      <div class="contact-box"><span class="label">📸 Instagram</span><a href="https://www.instagram.com/iqbal_alqadr1" target="_blank">@iqbal_alqadr1</a></div>
+    </section>
+  </main>
+
+  <footer>© 2025 Iqbal Alqadri. All rights reserved.</footer>
+
+  <script>
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          const bars=entry.target.querySelectorAll('.skill-bar span');
+          bars.forEach(b=>b.classList.add('active'));
+        }
+      });
+    },{threshold:0.3});
+    document.querySelectorAll('.section-title, .about, .skills, .grid, .timeline').forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
